@@ -1,0 +1,24 @@
+{
+  "name": "tree-sitter-tagml",
+  "version": "1.0.0",
+  "description": "tagml",
+  "main": "index.js",
+  "scripts": {
+    "test": "tree-sitter test"
+  },
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HuygensING/tree-sitter-tagml.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HuygensING/tree-sitter-tagml/issues"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "nan": "^2.11.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.13.8"
+  }
+}

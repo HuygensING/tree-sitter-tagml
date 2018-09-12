@@ -1,0 +1,12 @@
+#!/bin/env bash
+txtred=$(tput setaf 1)    # Red
+txtyellow=$(tput setaf 3) # Yellow
+txtreset=$(tput sgr0)
+if [ -f grammar.js ]; then
+	if [ grammar.js -nt src/grammar.json ]; then
+		echo "${txtyellow}grammar.js changed, re-compiling...${txtreset}"
+	  tree-sitter generate && npm install
+	fi
+else
+	echo "${txtred}no grammar.js found!${txtreset}"
+fi

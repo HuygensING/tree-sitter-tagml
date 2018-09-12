@@ -1,0 +1,78 @@
+=========
+start-tag
+=========
+[bla>
+---
+
+(document
+  (start_tag
+    (name)))
+
+=========
+end-tag
+=========
+<end]
+---
+
+(document
+  (end_tag
+    (name))
+)
+
+===============
+milestone-tag
+===============
+[milestone]
+---
+
+(document
+  (milestone_tag (name)))
+
+============
+Simple TAGML
+============
+[tag>téxt<tag]
+---
+
+(document
+  (start_tag
+    (name))
+  (text)
+  (end_tag
+    (name))
+)
+
+==================
+Easy start example
+==================
+[TAGML|+M>
+[text|M>
+[l|M>Une [del|M>[add|M>jolie<add]<del][add|M>belle<add] main de femme, élégante et fine<l] [l|M> malgré l'agrandissement du close-up.<l]
+<text]<TAGML|M]
+---
+
+(document
+  (start_tag (name) (start_layer_suffix (name)))
+  (text)
+  (start_tag (name) (start_layer_suffix (name)))
+  (text)
+  (start_tag (name) (start_layer_suffix (name)))
+  (text)
+  (start_tag (name) (start_layer_suffix (name)))
+  (start_tag (name) (start_layer_suffix (name)))
+  (text)
+  (end_tag (name))
+  (end_tag (name))
+  (start_tag (name) (start_layer_suffix (name)))
+  (text)
+  (end_tag (name))
+  (text)
+  (end_tag (name))
+  (text)
+  (start_tag (name) (start_layer_suffix (name)))
+  (text)
+  (end_tag (name))
+  (text)
+  (end_tag (name))
+  (end_tag (name) (end_layer_suffix (name)))
+)

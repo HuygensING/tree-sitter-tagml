@@ -1,0 +1,1 @@
+where tree-sitter || export PATH=$PATH:./build/.bin
