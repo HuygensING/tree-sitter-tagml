@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 txtred=$(tput setaf 1)    # Red
 txtyellow=$(tput setaf 3) # Yellow
 txtreset=$(tput sgr0)

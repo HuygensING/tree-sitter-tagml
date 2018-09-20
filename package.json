@@ -1,12 +1,13 @@
 {
   "name": "tree-sitter-tagml",
   "version": "0.0.1",
-  "description": "tagml",
+  "description": "TAGML grammar for tree-sitter ",
   "main": "index.js",
   "scripts": {
-    "test": "tree-sitter test"
+    "build": "tree-sitter generate && node-gyp build",
+    "test": "tree-sitter test && tree-sitter parse examples --quiet --time"
   },
-  "author": "",
+  "author": "bram.buitendijk@di.huc.knaw.nl",
   "repository": {
     "type": "git",
     "url": "https://github.com/HuygensING/tree-sitter-tagml.git"
@@ -19,6 +20,10 @@
     "nan": "^2.11.0"
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.13.8"
-  }
+    "tree-sitter-cli": "^0.13.9"
+  },
+  "keywords": [
+    "parser",
+    "lexer"
+  ]
 }
