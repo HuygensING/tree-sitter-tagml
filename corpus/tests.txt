@@ -258,7 +258,7 @@ milestone-tag with number annotation
 ============
 Simple TAGML
 ============
-[tag>téxt<tag]
+[tag>Sôme téxt<tag]
 ---
 
 (document
@@ -334,7 +334,7 @@ escaped characters in text
 
 
 =============
-escaped characters in string annotation
+escaped characters in string annotation1
 =============
 [t s="bla \" bla">text<t]
 
@@ -346,7 +346,7 @@ escaped characters in string annotation
 ))
 
 =============
-escaped characters in string annotation
+escaped characters in string annotation2
 =============
 [t s='bla \' bla'>text<t]
 
