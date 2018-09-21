@@ -1,1 +1,1 @@
-which tree-sitter || export PATH=$PATH:./build/.bin
+where tree-sitter || export PATH=$PATH:./node_modules/.bin

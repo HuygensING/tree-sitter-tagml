@@ -6,10 +6,200 @@ start-tag
 
 (document
   (start_tag
-    (open_start_markup)
     (name)
-    (close_start_markup)
 ))
+
+=========
+start-tag with string annotation
+=========
+[bla n="help">
+---
+
+(document
+  (start_tag
+    (name)
+    (annotation
+      (basic_annotation
+        (annotation_name)
+        (string_value)
+      )
+    )
+))
+
+=========
+start-tag with string annotation2
+=========
+[foo s='bar'>
+---
+
+(document
+  (start_tag
+    (name)
+    (annotation
+      (basic_annotation
+        (annotation_name)
+        (string_value)
+      )
+    )
+))
+
+=========
+start-tag with boolean annotation1
+=========
+[foo bar=True>
+---
+
+(document
+  (start_tag
+    (name)
+    (annotation
+      (basic_annotation
+        (annotation_name)
+        (boolean_value)
+      )
+    )
+))
+=========
+start-tag with boolean annotation2
+=========
+[foo bar=false>
+---
+
+(document
+  (start_tag
+    (name)
+    (annotation
+      (basic_annotation
+        (annotation_name)
+        (boolean_value)
+      )
+    )
+))
+=========
+start-tag with number annotation1
+=========
+[foo a=1>
+---
+
+(document
+  (start_tag
+    (name)
+    (annotation
+      (basic_annotation
+        (annotation_name)
+        (number_value)
+      )
+    )
+))
+=========
+start-tag with number annotation2
+=========
+[foo a=1.234>
+---
+
+(document
+  (start_tag
+    (name)
+    (annotation
+      (basic_annotation
+        (annotation_name)
+        (number_value)
+      )
+    )
+))
+=========
+start-tag with number list annotation
+=========
+[foo bar=[1,2,3]>
+---
+
+(document
+  (start_tag
+    (name)
+    (annotation
+      (basic_annotation
+        (annotation_name)
+        (list_value
+           (number_value)
+           (number_value)
+           (number_value)
+        )
+      )
+    )
+))
+=========
+start-tag with string list annotation
+=========
+[foo bar=["a","b"]>
+---
+
+(document
+  (start_tag
+    (name)
+    (annotation
+      (basic_annotation
+        (annotation_name)
+        (list_value
+          (string_value)
+          (string_value)
+        )
+      )
+    )
+))
+=========
+start-tag with object annotation
+=========
+[foo bar={a="A" b="B"}>
+---
+
+(document
+  (start_tag
+    (name)
+    (annotation
+      (basic_annotation
+        (annotation_name)
+        (object_value
+           (annotation
+             (basic_annotation
+               (annotation_name)
+               (string_value)
+             )
+           )
+           (annotation
+             (basic_annotation
+               (annotation_name)
+               (string_value)
+)))))))
+=========
+start-tag with nested object annotation
+=========
+[foo bar={a="A" o={x="X" y="Y"}}>
+---
+
+(document
+  (start_tag
+    (name)
+    (annotation
+      (basic_annotation
+        (annotation_name)
+        (object_value
+          (annotation
+            (basic_annotation
+              (annotation_name)
+              (string_value)))
+          (annotation
+             (basic_annotation
+               (annotation_name)
+               (object_value
+                 (annotation
+                   (basic_annotation
+                     (annotation_name)
+                     (string_value)))
+                 (annotation
+                   (basic_annotation
+                     (annotation_name)
+                     (string_value)
+))))))))))
 
 =========
 end-tag
@@ -19,9 +209,21 @@ end-tag
 
 (document
   (end_tag
-    (open_end_markup)
     (name)
-    (close_end_markup)
+))
+
+=========
+end-tag with layer
+=========
+<end|L]
+---
+
+(document
+  (end_tag
+    (name)
+    (end_layer_suffix
+      (name)
+    )
 ))
 
 ===============
@@ -32,10 +234,26 @@ milestone-tag
 
 (document
   (milestone_tag
-    (open_start_markup)
     (name)
-    (close_end_markup)
 ))
+
+===============
+milestone-tag with number annotation
+===============
+[milestone n=1]
+---
+
+(document
+  (milestone_tag
+    (name)
+    (annotation
+       (basic_annotation
+          (annotation_name)
+          (number_value)
+       )
+    )
+))
+
 
 ============
 Simple TAGML
@@ -62,9 +280,7 @@ Easy start example
 
 (document
   (start_tag (name) (start_layer_suffix (name)))
-  (text)
   (start_tag (name) (start_layer_suffix (name)))
-  (text)
   (start_tag (name) (start_layer_suffix (name)))
   (text)
   (start_tag (name) (start_layer_suffix (name)))
@@ -77,11 +293,9 @@ Easy start example
   (end_tag (name))
   (text)
   (end_tag (name))
-  (text)
   (start_tag (name) (start_layer_suffix (name)))
   (text)
   (end_tag (name))
-  (text)
   (end_tag (name))
   (end_tag (name) (end_layer_suffix (name)))
 )
@@ -104,3 +318,41 @@ non-linearity
     (end_text_variation))
   (text)
   (end_tag (name)))
+
+
+=============
+escaped characters in text
+=============
+[t>These characters need to be escaped: \\< \\[ \\| \\! \\' \\" \\\\<t]
+
+----
+(document
+  (start_tag (name))
+  (text)
+  (end_tag (name)
+))
+
+
+=============
+escaped characters in string annotation
+=============
+[t s="bla \" bla">text<t]
+
+----
+(document
+  (start_tag (name))
+  (text)
+  (end_tag (name)
+))
+
+=============
+escaped characters in string annotation
+=============
+[t s='bla \' bla'>text<t]
+
+----
+(document
+  (start_tag (name))
+  (text)
+  (end_tag (name)
+))

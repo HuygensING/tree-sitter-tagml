@@ -38,7 +38,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "open_start_markup"
+          "name": "_open_start_markup"
         },
         {
           "type": "SYMBOL",
@@ -57,16 +57,32 @@
           ]
         },
         {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "\\s+"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "annotation"
+              }
+            ]
+          }
+        },
+        {
           "type": "SYMBOL",
-          "name": "close_start_markup"
+          "name": "_close_start_markup"
         }
       ]
     },
-    "open_start_markup": {
+    "_open_start_markup": {
       "type": "STRING",
       "value": "["
     },
-    "close_start_markup": {
+    "_close_start_markup": {
       "type": "STRING",
       "value": ">"
     },
@@ -75,7 +91,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "open_end_markup"
+          "name": "_open_end_markup"
         },
         {
           "type": "SYMBOL",
@@ -94,16 +110,32 @@
           ]
         },
         {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "\\s+"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "annotation"
+              }
+            ]
+          }
+        },
+        {
           "type": "SYMBOL",
-          "name": "close_end_markup"
+          "name": "_close_end_markup"
         }
       ]
     },
-    "open_end_markup": {
+    "_open_end_markup": {
       "type": "STRING",
       "value": "<"
     },
-    "close_end_markup": {
+    "_close_end_markup": {
       "type": "STRING",
       "value": "]"
     },
@@ -112,7 +144,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "open_start_markup"
+          "name": "_open_start_markup"
         },
         {
           "type": "SYMBOL",
@@ -131,8 +163,24 @@
           ]
         },
         {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "\\s+"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "annotation"
+              }
+            ]
+          }
+        },
+        {
           "type": "SYMBOL",
-          "name": "close_end_markup"
+          "name": "_close_end_markup"
         }
       ]
     },
@@ -230,7 +278,7 @@
           "name": "variant_text"
         },
         {
-          "type": "REPEAT",
+          "type": "REPEAT1",
           "content": {
             "type": "SYMBOL",
             "name": "text_variation_separator"
@@ -255,31 +303,15 @@
       "value": "|>"
     },
     "variant_text": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_chunk"
-          },
-          {
-            "type": "PREC",
-            "value": 3,
-            "content": {
-              "type": "PATTERN",
-              "value": "[^[<\\|]+"
-            }
-          }
-        ]
-      }
+      "type": "SYMBOL",
+      "name": "_chunk"
     },
     "name": {
       "type": "PREC",
       "value": 1,
       "content": {
         "type": "PATTERN",
-        "value": "[a-zA-Z]+"
+        "value": "[a-zA-Z0-9_]+"
       }
     },
     "text": {
@@ -289,6 +321,245 @@
         "type": "PATTERN",
         "value": "[^[<]+"
       }
+    },
+    "annotation": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "basic_annotation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ref_annotation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifying_annotation"
+        }
+      ]
+    },
+    "basic_annotation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "annotation_name"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_annotation_value"
+        }
+      ]
+    },
+    "ref_annotation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "annotation_name"
+        },
+        {
+          "type": "STRING",
+          "value": "->"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ref_value"
+        }
+      ]
+    },
+    "identifying_annotation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "id_annotation"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "id_value"
+        }
+      ]
+    },
+    "annotation_name": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z0-9_]+"
+    },
+    "_annotation_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "string_value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "boolean_value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number_value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "richtext_value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "list_value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "object_value"
+        }
+      ]
+    },
+    "ref_value": {
+      "type": "SYMBOL",
+      "name": "name"
+    },
+    "id_annotation": {
+      "type": "STRING",
+      "value": ":id"
+    },
+    "id_value": {
+      "type": "SYMBOL",
+      "name": "name"
+    },
+    "string_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "\""
+            },
+            {
+              "type": "PATTERN",
+              "value": "[^\"]*"
+            },
+            {
+              "type": "STRING",
+              "value": "\""
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "'"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[^']*"
+            },
+            {
+              "type": "STRING",
+              "value": "'"
+            }
+          ]
+        }
+      ]
+    },
+    "boolean_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "[Tt][Rr][Uu][Ee]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[Ff][Aa][Ll][Ss][Ee]"
+        }
+      ]
+    },
+    "number_value": {
+      "type": "PATTERN",
+      "value": "[0-9]+(\\.[0-9]+)?"
+    },
+    "richtext_value": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "[>"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^<]*"
+        },
+        {
+          "type": "STRING",
+          "value": "<]"
+        }
+      ]
+    },
+    "list_value": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_annotation_value"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_annotation_value"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "object_value": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "annotation"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
     }
   },
   "extras": [
