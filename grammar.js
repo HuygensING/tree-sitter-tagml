@@ -76,17 +76,16 @@ module.exports = grammar({
 
     name: $ => prec(1, /[a-zA-Z0-9_]+/),
 
-    text: $ => prec(2, repeat1(
-      choice(
-        $._regular_char,
-        $._escaped_char
-      ))),
+    text: $ => prec(2, choice(
+        $._regular_text,
+        $.escaped_char
+      )),
 
-    _regular_char: $ => /[^[<]/,
+    _regular_text: $ => token(/[^[<\\]+/),
 
-    _escaped_char: $ => choice(
-      '\\\\', '\\"', "\\'", '\\<', '\\[', '\\!', '\\|'
-    ),
+    escaped_char: $ => token(/\\[\\"'<[!|"]/),
+//      '\\\\', '\\"', "\\'", '\\<', '\\[', '\\!', '\\|'
+//    ),
 
     annotation: $ => choice(
       $.basic_annotation,
