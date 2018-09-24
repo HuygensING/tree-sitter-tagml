@@ -2,3 +2,5 @@ examples
 scripts
 corpus
 build
+.idea
+*.iml
